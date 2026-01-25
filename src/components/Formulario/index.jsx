@@ -3,17 +3,8 @@ import ListaSuspensa from '../ListaSuspensa'
 import './Formulario.css'
 import Botao from '../Botao'
 import { useState } from 'react'
-const Formulario = () => {
+const Formulario = (props) => {
 
-    const times = [
-        'Programação',
-        'Front-End',
-        'Data Science',
-        'Devops',
-        'UX e Design',
-        'Mobile',
-        'Inovação e Gestão'
-    ]
     const  [nome, setNome] = useState('')
     const  [cargo, setcargo] = useState('')
     const  [imagem, setimagem] = useState('')
@@ -22,7 +13,16 @@ const Formulario = () => {
 
     const aoSalvar = (evento) => {
         evento.preventDefault()
-            console.log('Form foi submetido', nome, cargo, imagem)
+            props.aoColaboradorCadastrado({ nome,
+                 cargo,
+                  imagem,
+                  time
+
+            })
+            setNome('')
+            setcargo('')
+            setimagem('')
+            setTime('')
     }
 
     return (
@@ -32,7 +32,7 @@ const Formulario = () => {
                 <CampoTexto obrigatorio={true} label="Nome" placeholder="Digite seu nome" valor={nome} aoAlterado={valor => setNome(valor)}/>
                 <CampoTexto obrigatorio={true} label="Cargo" placeholder="Digite seu cargo" valor={cargo} aoAlterado={valor => setcargo(valor)}/>
                 <CampoTexto label="Imagem" placeholder="Digite seu endereço da imagem" valor={imagem} aoAlterado={valor => setimagem(valor)}/>
-                <ListaSuspensa label="Times" itens={times} valor={time} aoAlterado={valor => setTime(valor)}/>
+                <ListaSuspensa label="Times" itens={props.times} valor={time} aoAlterado={valor => setTime(valor)}/>
                 <Botao > 
                     Criar Card
                 </Botao>

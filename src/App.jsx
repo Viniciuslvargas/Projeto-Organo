@@ -3,9 +3,16 @@ import Banner from './components/Banner/Banner'
 import Formulario from './components/Formulario'
 import Time from './components/Time'
 import './index.css'
+import Colaborador from './components/Colaborador/Index'
 function App() {
   const times = [
-     {
+     
+    {
+    nome: 'Programação',
+    corPrimaria: '#5cb2e4',
+    corSecundaria: '#0985bb',
+},
+    {
     nome: 'Front-End',
     corPrimaria: '#82CFFA',
     corSecundaria: '#E8F8FF',
@@ -38,8 +45,8 @@ function App() {
     ]
   const [colaboradores, setColaboradores] = useState([])
 
-  const aoAlteradoNovoColaboradorAdicionado = (colaborador) => {
-    console.log(colaborador)
+  const aoAlteradoNovoColaboradorAdicionado = (colaborador) => { 
+    
     setColaboradores([...colaboradores, colaborador])
   }
 
@@ -48,9 +55,15 @@ function App() {
     <>
       <div className='App'>
         <Banner />
-        <Formulario aoColaboradorCadastrado={colaborador => aoAlteradoNovoColaboradorAdicionado(colaborador)}/>
+        <Formulario times={times.map(time => time.nome)} aoColaboradorCadastrado={colaborador => aoAlteradoNovoColaboradorAdicionado(colaborador)}/>
        
-       {times.map(time => <Time key={time.nome} nome={time.nome}></Time>)}
+       {times.map(time => <Time 
+       key={time.nome} 
+       nome={time.nome} 
+       corPrimaria={time.corPrimaria} 
+       corSecundaria={time.corSecundaria}
+      colaboradores={colaboradores.filter(colaborador => colaborador.time === time.nome)}
+       />)}
        
         
        
